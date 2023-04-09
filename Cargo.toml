@@ -1,5 +1,5 @@
 [package]
-name = "gateway-contract"
+name = "gateway"
 version = "0.1.0"
 edition = "2021"
 
@@ -17,4 +17,3 @@ cw2 = { version = "0.16.0" }
 
 [dev-dependencies]
 cw-multi-test = "0.13.4"
-
