@@ -1,4 +1,4 @@
-use cosmwasm_std::{Addr, DepsMut, Response, StdResult};
+use cosmwasm_std::{Addr, DepsMut, MessageInfo, Response, StdResult, Env};
 
 use msg::{InstantiateMsg};
 use state::{Config, CONFIG, ExecResult, Project, PROJECT};
@@ -17,7 +17,7 @@ pub fn init(deps: DepsMut, msg: InstantiateMsg) -> StdResult<Response> {
     Ok(Response::default())
 }
 
-pub fn create_project(deps: DepsMut, owner: Addr, github_addr: String, des: String) -> StdResult<Response> {
+pub fn create_project(deps: DepsMut, _env: Env, _info: MessageInfo, owner: Addr, github_addr: String, des: String) -> StdResult<Response> {
     let mut config = CONFIG.load(deps.storage)?;
 
     let project = Project {
@@ -36,7 +36,7 @@ pub fn create_project(deps: DepsMut, owner: Addr, github_addr: String, des: Stri
         .add_attribute("id", project.id.to_string()))
 }
 
-pub fn save_exec_result(deps: DepsMut, user: Addr, id: i32, result: String) -> StdResult<Response> {
+pub fn save_exec_result(deps: DepsMut, _env: Env, _info: MessageInfo, user: Addr, id: i32, result: String) -> StdResult<Response> {
     let mut project = PROJECT.load(deps.storage, id)?;
 
     let result = ExecResult {

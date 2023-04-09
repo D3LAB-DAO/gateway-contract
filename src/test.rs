@@ -26,7 +26,7 @@ fn test_query_config() {
     )
         .unwrap();
 
-    let result = query(deps.as_ref(), QueryMsg::Config {}).unwrap();
+    let result = query(deps.as_ref(), env.clone(), info.clone(), QueryMsg::Config {}).unwrap();
     let res: Config = from_binary(&result).unwrap();
     assert_eq!(res.owner, "test");
     assert_eq!(res.count, 0);
@@ -50,12 +50,12 @@ fn test_execute_create_project() {
     )
         .unwrap();
 
-    let res = create_project(deps.as_mut(), Addr::unchecked("test"), "github.com/test".to_string(), "test project".to_string()).unwrap();
+    let res = create_project(deps.as_mut(), env.clone(), info.clone(), Addr::unchecked("test"), "github.com/test".to_string(), "test project".to_string()).unwrap();
     assert_eq!(res.attributes, vec![
         attr("id", 1.to_string())
     ]);
 
-    let result = query(deps.as_ref(), ProjectQueryMsg { id: 1 }).unwrap();
+    let result = query(deps.as_ref(), env.clone(), info.clone(), ProjectQueryMsg { id: 1 }).unwrap();
     let query_res: ProjectResponse = from_binary(&result).unwrap();
     assert_eq!(query_res.id, 1);
     assert_eq!(query_res.owner, Addr::unchecked("test"));
@@ -81,10 +81,10 @@ fn test_exec_save_result() {
         msg,
     )
         .unwrap();
-    create_project(deps.as_mut(), Addr::unchecked("owner"), "github.com/test".to_string(), "test project".to_string()).unwrap();
-    save_exec_result(deps.as_mut(), Addr::unchecked("test"), 1, "result".to_string()).unwrap();
+    create_project(deps.as_mut(), env.clone(), info.clone(), Addr::unchecked("owner"), "github.com/test".to_string(), "test project".to_string()).unwrap();
+    save_exec_result(deps.as_mut(), env.clone(), info.clone(), Addr::unchecked("test"), 1, "result".to_string()).unwrap();
 
-    let result = query(deps.as_ref(), ProjectQueryMsg { id: 1 }).unwrap();
+    let result = query(deps.as_ref(), env.clone(), info.clone(), ProjectQueryMsg { id: 1 }).unwrap();
     let query_res: ProjectResponse = from_binary(&result).unwrap();
     assert_eq!(query_res.id, 1);
     assert_eq!(query_res.owner, Addr::unchecked("owner"));

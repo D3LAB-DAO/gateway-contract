@@ -9,6 +9,7 @@ pub struct InstantiateMsg {
     pub count: i32,
 }
 
+#[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]
 pub enum ExecuteMsg {
     CreateProjectMsg {
         owner: Addr,
@@ -23,6 +24,7 @@ pub enum ExecuteMsg {
     },
 }
 
+#[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]
 pub enum QueryMsg {
     Config {},
     ProjectQueryMsg {
