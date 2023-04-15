@@ -27,6 +27,7 @@ pub struct ResultRequest {
 #[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]
 pub struct ExecResult {
     pub user: Addr,
+    pub request: String,
     pub result: String,
 }
 

@@ -1,4 +1,5 @@
 use cosmwasm_std::Addr;
+use cw_storage_plus::Map;
 use serde::{Deserialize, Serialize};
 
 use crate::state::{ExecResult, ResultRequest};
@@ -26,6 +27,7 @@ pub enum ExecuteMsg {
     SaveResultMsg {
         id: i32,
         user: Addr,
+        request: String,
         result: String,
     },
 }

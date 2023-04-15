@@ -82,7 +82,7 @@ fn test_exec_save_result() {
     )
         .unwrap();
     create_project(deps.as_mut(), env.clone(), info.clone(), Addr::unchecked("owner"), "github.com/test".to_string(), "test project".to_string()).unwrap();
-    save_exec_result(deps.as_mut(), env.clone(), info.clone(), Addr::unchecked("test"), 1, "result".to_string()).unwrap();
+    save_exec_result(deps.as_mut(), env.clone(), info.clone(), Addr::unchecked("test"), 1, "request".to_string(), "result".to_string()).unwrap();
 
     let result = query(deps.as_ref(), env.clone(), ProjectInfo { id: 1 }).unwrap();
     let query_res: ProjectResponse = from_binary(&result).unwrap();
@@ -90,5 +90,5 @@ fn test_exec_save_result() {
     assert_eq!(query_res.owner, Addr::unchecked("owner"));
     assert_eq!(query_res.github_addr, "github.com/test".to_string());
     assert_eq!(query_res.description, "test project".to_string());
-    assert_eq!(query_res.result, [ExecResult { user: Addr::unchecked("test"), result: "result".to_string() }]);
+    assert_eq!(query_res.result, [ExecResult { user: Addr::unchecked("test"), request: "request".to_string(), result: "result".to_string() }]);
 }

@@ -22,7 +22,7 @@ pub fn instantiate(
 pub fn execute(deps: DepsMut, env: Env, info: MessageInfo, msg: ExecuteMsg) -> StdResult<Response> {
     match msg {
         ExecuteMsg::CreateProjectMsg { owner, github_addr, description } => execute::create_project(deps, env, info, owner, github_addr, description),
-        ExecuteMsg::SaveResultMsg { user, id, result } => execute::save_exec_result(deps, env, info, user, id, result),
+        ExecuteMsg::SaveResultMsg { user, id, request, result } => execute::save_exec_result(deps, env, info, user, id, request, result),
         ExecuteMsg::ResultRequestMsg { user, id, input } => execute::result_request(deps, env, info, user, id, input)
     }
 }

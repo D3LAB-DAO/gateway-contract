@@ -52,11 +52,12 @@ pub fn result_request(deps: DepsMut, _env: Env, _info: MessageInfo, user: Addr, 
     Ok(Response::default())
 }
 
-pub fn save_exec_result(deps: DepsMut, _env: Env, _info: MessageInfo, user: Addr, id: i32, result: String) -> StdResult<Response> {
+pub fn save_exec_result(deps: DepsMut, _env: Env, _info: MessageInfo, user: Addr, id: i32, request: String, result: String) -> StdResult<Response> {
     let mut project = PROJECT.load(deps.storage, id)?;
 
     let result = ExecResult {
         user,
+        request,
         result,
     };
     project.result.push(result);
