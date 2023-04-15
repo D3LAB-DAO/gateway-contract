@@ -23,6 +23,7 @@ pub fn execute(deps: DepsMut, env: Env, info: MessageInfo, msg: ExecuteMsg) -> S
     match msg {
         ExecuteMsg::CreateProjectMsg { owner, github_addr, description } => execute::create_project(deps, env, info, owner, github_addr, description),
         ExecuteMsg::SaveResultMsg { user, id, result } => execute::save_exec_result(deps, env, info, user, id, result),
+        ExecuteMsg::ResultRequestMsg { user, id, input } => execute::result_request(deps, env, info, user, id, input)
     }
 }
 
@@ -30,7 +31,7 @@ pub fn execute(deps: DepsMut, env: Env, info: MessageInfo, msg: ExecuteMsg) -> S
 pub fn query(deps: Deps, _env: Env, msg: QueryMsg) -> StdResult<Binary> {
     match msg {
         QueryMsg::Config {} => to_binary(&query::config(deps)?),
-        QueryMsg::ProjectQueryMsg { id } => to_binary(&query::project_info(
+        QueryMsg::ProjectInfo { id } => to_binary(&query::project_info(
             deps,
             id,
         )?),

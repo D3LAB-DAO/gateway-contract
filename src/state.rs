@@ -1,4 +1,4 @@
-use cosmwasm_std::{Addr};
+use cosmwasm_std::Addr;
 use cw_storage_plus::{Item, Map};
 use serde::{Deserialize, Serialize};
 
@@ -14,7 +14,14 @@ pub struct Project {
     pub owner: Addr,
     pub github_addr: String,
     pub description: String,
+    pub request: Vec<ResultRequest>,
     pub result: Vec<ExecResult>,
+}
+
+#[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]
+pub struct ResultRequest {
+    pub user: Addr,
+    pub input: String,
 }
 
 #[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]

@@ -1,7 +1,7 @@
-use cosmwasm_std::{Addr};
+use cosmwasm_std::Addr;
 use serde::{Deserialize, Serialize};
 
-use crate::state::ExecResult;
+use crate::state::{ExecResult, ResultRequest};
 
 #[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]
 pub struct InstantiateMsg {
@@ -17,6 +17,12 @@ pub enum ExecuteMsg {
         description: String,
     },
 
+    ResultRequestMsg {
+        user: Addr,
+        id: i32,
+        input: String,
+    },
+
     SaveResultMsg {
         id: i32,
         user: Addr,
@@ -27,7 +33,7 @@ pub enum ExecuteMsg {
 #[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]
 pub enum QueryMsg {
     Config {},
-    ProjectQueryMsg {
+    ProjectInfo {
         id: i32
     },
 }
@@ -44,7 +50,15 @@ pub struct ProjectResponse {
     pub github_addr: String,
     pub description: String,
     pub owner: Addr,
+    pub request: Vec<ResultRequest>,
     pub result: Vec<ExecResult>,
+}
+
+#[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]
+pub struct ResultRequestMsg {
+    pub id: i32,
+    pub user_addr: Addr,
+    pub input: String,
 }
 
 #[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]

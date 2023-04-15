@@ -2,8 +2,8 @@ use cosmwasm_std::{Deps, StdResult};
 
 use state::CONFIG;
 
-use crate::state;
 use crate::msg::{Config, ProjectResponse};
+use crate::state;
 use crate::state::PROJECT;
 
 pub fn config(deps: Deps) -> StdResult<Config> {
@@ -23,6 +23,7 @@ pub fn project_info(deps: Deps, id: i32) -> StdResult<ProjectResponse> {
         github_addr: project.github_addr,
         description: project.description,
         owner: project.owner,
+        request: project.request,
         result: project.result,
     };
     Ok(resp)
