@@ -9,6 +9,11 @@ pub struct Config {
 }
 
 #[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]
+pub struct RequestID {
+    pub request_id: Vec<i32>,
+}
+
+#[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]
 pub struct Project {
     pub id: i32,
     pub owner: Addr,
@@ -20,16 +25,19 @@ pub struct Project {
 
 #[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]
 pub struct ResultRequest {
+    pub req_id: i32,
     pub user: Addr,
     pub input: String,
 }
 
 #[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]
 pub struct ExecResult {
+    pub req_id: i32,
     pub user: Addr,
     pub request: String,
     pub result: String,
 }
 
 pub const CONFIG: Item<Config> = Item::new("config");
+pub const REQUEST: Item<RequestID> = Item::new("request");
 pub const PROJECT: Map<i32, Project> = Map::new("project");

@@ -2,9 +2,9 @@ use cosmwasm_std::{Deps, StdResult};
 
 use state::CONFIG;
 
-use crate::msg::{Config, ProjectResponse};
+use crate::msg::{Config, ProjectResponse, RequestIDResponse};
 use crate::state;
-use crate::state::PROJECT;
+use crate::state::{PROJECT, REQUEST};
 
 pub fn config(deps: Deps) -> StdResult<Config> {
     let config = CONFIG.load(deps.storage)?;
@@ -12,6 +12,18 @@ pub fn config(deps: Deps) -> StdResult<Config> {
         owner: (config.admin),
         count: config.cnt,
     };
+    Ok(resp)
+}
+
+pub fn request_id(deps: Deps, id: i32) -> StdResult<RequestIDResponse> {
+    let req = REQUEST.load(deps.storage)?;
+
+    let idx = id as usize;
+    let resp = RequestIDResponse {
+        project_id: id,
+        req_id: req.request_id[idx],
+    };
+
     Ok(resp)
 }
 

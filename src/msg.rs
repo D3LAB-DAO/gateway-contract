@@ -25,9 +25,10 @@ pub enum ExecuteMsg {
     },
 
     SaveResultMsg {
-        id: i32,
+        project_id: i32,
         user: Addr,
         request: String,
+        req_id: i32,
         result: String,
     },
 }
@@ -35,6 +36,9 @@ pub enum ExecuteMsg {
 #[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]
 pub enum QueryMsg {
     Config {},
+    RequestIDInfo {
+        id: i32
+    },
     ProjectInfo {
         id: i32
     },
@@ -68,4 +72,10 @@ pub struct SaveResultMsg {
     pub id: i32,
     pub result: String,
     pub user_addr: Addr,
+}
+
+#[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]
+pub struct RequestIDResponse {
+    pub project_id: i32,
+    pub req_id: i32,
 }
